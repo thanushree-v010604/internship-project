@@ -2,31 +2,34 @@ name: Node.js CI
 
 on:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Run tests
-        run: echo "No tests yet — pipeline working!"
-      - name: Create build artifact
-        run: zip -r project-build.zip .
+    - name: Run tests
+      run: echo "No tests yet — pipeline working!"
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: project-build
-          path: project-build.zip
+    # 👇👇 ADD THESE TWO STEPS BELOW 👇👇
+    - name: Create a file
+      run: echo "Pipeline is working!" > output.txt
+
+    - name: Upload artifact
+    
+      uses: actions/upload-artifact@v4
+      with:
+        name: my-artifact
+        path: output.txt
